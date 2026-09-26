@@ -1,4 +1,8 @@
-document.addEventListener("DOMContentLoaded", () => { // スマホではネズミを表示しない if (window.innerWidth <= 767) { return; }
+document.addEventListener("DOMContentLoaded", () => {
+  // スマホではネズミを表示しない
+  if (window.innerWidth <= 767) {
+    return;
+  }
 
   const walkFrames = [
     "https://cdn-ak.f.st-hatena.com/images/fotolife/e/erupyon/20260926/20260926211249.png",
@@ -14,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => { // スマホではネズ�
   const mouse = document.createElement("img");
   mouse.src = idleImage;
   mouse.alt = "";
-  
+
   Object.assign(mouse.style, {
     position: "fixed",
     right: "8px",
@@ -24,7 +28,6 @@ document.addEventListener("DOMContentLoaded", () => { // スマホではネズ�
     zIndex: "9999",
     pointerEvents: "none"
   });
-
 
   document.body.appendChild(mouse);
 
@@ -62,4 +65,6 @@ document.addEventListener("DOMContentLoaded", () => { // スマホではネズ�
   }
 
   window.addEventListener("scroll", handleScroll);
+});
+
 
