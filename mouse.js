@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
     animationTimer = setInterval(() => {
       walkFrame = (walkFrame + 1) % walkFrames.length;
       mouse.src = walkFrames[walkFrame];
-    }, 180);
+    }, 200);
   }
 
   // ダンス
@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // スクロールが止まったら少し待ってダンス
     stopTimer = setTimeout(() => {
       startDancing();
-    }, 500);
+    }, 600);
   }
 
   window.addEventListener("scroll", handleScroll);
