@@ -86,19 +86,18 @@ function startWalking() {
   }
 
   // スクロール
-  function handleScroll() {
-    // ダンス開始待ち・ダンス中のタイマーを止める
-    clearTimeout(stopTimer);
-    clearInterval(animationTimer);
+function handleScroll() {
+  // ダンス開始待ちのタイマーをキャンセル
+  clearTimeout(stopTimer);
 
-    // スクロール中は歩く
-    startWalking();
+  // スクロール中は歩く
+  startWalking();
 
-    // スクロールが止まったら少し待ってダンス
-    stopTimer = setTimeout(() => {
-      startDancing();
-    }, 600);
-  }
+  // スクロールが止まったら少し待ってダンス
+  stopTimer = setTimeout(() => {
+    startDancing();
+  }, 500);
+}
 
   window.addEventListener("scroll", handleScroll);
 });
