@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   // スマホではネズミを表示しない
-  if (window.innerWidth <= 767) {
+  if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
     return;
   }
 
@@ -9,6 +9,13 @@ document.addEventListener("DOMContentLoaded", () => {
     "https://cdn-ak.f.st-hatena.com/images/fotolife/e/erupyon/20260926/20260926211253.png",
     "https://cdn-ak.f.st-hatena.com/images/fotolife/e/erupyon/20260926/20260926211256.png",
     "https://cdn-ak.f.st-hatena.com/images/fotolife/e/erupyon/20260926/20260926211240.png"
+  ];
+
+  const danceFrames = [
+    "https://cdn-ak.f.st-hatena.com/images/fotolife/e/erupyon/20260926/20260926211312.png",
+    "https://cdn-ak.f.st-hatena.com/images/fotolife/e/erupyon/20260926/20260926211316.png",
+    "https://cdn-ak.f.st-hatena.com/images/fotolife/e/erupyon/20260926/20260926211232.png",
+    "https://cdn-ak.f.st-hatena.com/images/fotolife/e/erupyon/20260926/20260926211236.png"
   ];
 
   const idleImage =
@@ -34,23 +41,46 @@ document.addEventListener("DOMContentLoaded", () => {
   let frame = 0;
   let animationTimer = null;
   let stopTimer = null;
+  let isDancing = false;
 
   // 歩くアニメーション
   function startWalking() {
-    if (animationTimer) return;
+    if (isDancing) {
+      isDancing = false;
+    }
 
+    if (animationTimer) {
+      clearInterval(animationTimer);
+    }
+
+    frame = 0;
     animationTimer = setInterval(() => {
       mouse.src = walkFrames[frame];
       frame = (frame + 1) % walkFrames.length;
     }, 120);
   }
 
-  // 待機状態に戻す
+  // 待機状態
   function stopWalking() {
     clearInterval(animationTimer);
     animationTimer = null;
     frame = 0;
     mouse.src = idleImage;
+  }
+
+  // ダンス開始
+  function startDancing() {
+    if (isDancing) return;
+
+    isDancing = true;
+    frame = 0;
+
+    clearInterval(animationTimer);
+
+    animationTimer = setInterval(() => {
+      mouse.src = danceFrames[frame];
+      frame = (frame + 1) % danceFrames.length;
+    }, 180);
   }
 
   // スクロールしたら歩く
@@ -61,10 +91,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     stopTimer = setTimeout(() => {
       stopWalking();
+
+      // スクロールが止まったら少し待って踊る
+      stopTimer = setTimeout(() => {
+        startDancing();
+      }, 500);
+
     }, 300);
   }
 
   window.addEventListener("scroll", handleScroll);
 });
-
-
