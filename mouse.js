@@ -1,4 +1,5 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => { // スマホではネズミを表示しない if (window.innerWidth <= 767) { return; }
+
   const walkFrames = [
     "https://cdn-ak.f.st-hatena.com/images/fotolife/e/erupyon/20260926/20260926211249.png",
     "https://cdn-ak.f.st-hatena.com/images/fotolife/e/erupyon/20260926/20260926211253.png",
@@ -24,12 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
     pointerEvents: "none"
   });
 
-  // スマホでは小さくする
-  if (window.innerWidth <= 767) {
-    mouse.style.width = "40px";
-    mouse.style.right = "8px";
-    mouse.style.bottom = "70px";
-  }
 
   document.body.appendChild(mouse);
 
@@ -68,6 +63,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.addEventListener("scroll", handleScroll);
 
-  // スマホのタッチ操作でも歩く
-  window.addEventListener("touchmove", handleScroll, { passive: true });
-});
