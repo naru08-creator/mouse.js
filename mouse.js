@@ -5,8 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const walkFrames = [
-    "https://cdn-ak.f.st-hatena.com/images/fotolife/e/erupyon/20260926/20260926211249.png",
-    "https://cdn-ak.f.st-hatena.com/images/fotolife/e/erupyon/20260926/20260926211253.png",
     "https://cdn-ak.f.st-hatena.com/images/fotolife/e/erupyon/20260926/20260926211256.png",
     "https://cdn-ak.f.st-hatena.com/images/fotolife/e/erupyon/20260926/20260926211240.png"
   ];
