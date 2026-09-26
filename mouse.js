@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const danceFrames = [
     "https://cdn-ak.f.st-hatena.com/images/fotolife/e/erupyon/20260926/20260926211312.png",
-    "https://cdn-ak.f.st-hatena.com/images/fotolife/e/erupyon/20260926/20260926211316.png",
+    "https://cdn-ak.f.st-hatena.com/images/fotolife/e/erupyon/20260926/20260926211216.png",
     "https://cdn-ak.f.st-hatena.com/images/fotolife/e/erupyon/20260926/20260926211232.png",
     "https://cdn-ak.f.st-hatena.com/images/fotolife/e/erupyon/20260926/20260926211236.png"
   ];
@@ -43,39 +43,30 @@ document.addEventListener("DOMContentLoaded", () => {
   let stopTimer = null;
   let isDancing = false;
 
-  // 歩くアニメーション
+  // 歩く
   function startWalking() {
-    if (isDancing) {
-      isDancing = false;
-    }
+    isDancing = false;
 
-    if (animationTimer) {
-      clearInterval(animationTimer);
-    }
+    clearInterval(animationTimer);
 
     frame = 0;
+    mouse.src = walkFrames[0];
+
     animationTimer = setInterval(() => {
       mouse.src = walkFrames[frame];
       frame = (frame + 1) % walkFrames.length;
     }, 120);
   }
 
-  // 待機状態
-  function stopWalking() {
-    clearInterval(animationTimer);
-    animationTimer = null;
-    frame = 0;
-    mouse.src = idleImage;
-  }
-
-  // ダンス開始
+  // ダンス
   function startDancing() {
     if (isDancing) return;
 
     isDancing = true;
-    frame = 0;
 
     clearInterval(animationTimer);
+
+    frame = 0;
 
     animationTimer = setInterval(() => {
       mouse.src = danceFrames[frame];
@@ -85,18 +76,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // スクロールしたら歩く
   function handleScroll() {
-    startWalking();
-
+    // ダンス開始待ちのタイマーをキャンセル
     clearTimeout(stopTimer);
 
+    // スクロール中は必ず歩く
+    startWalking();
+
+    // スクロールが止まったらダンス開始
     stopTimer = setTimeout(() => {
-      stopWalking();
-
-      // スクロールが止まったら少し待って踊る
-      stopTimer = setTimeout(() => {
-        startDancing();
-      }, 500);
-
+      startDancing();
     }, 300);
   }
 
