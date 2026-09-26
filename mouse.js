@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const danceFrames = [
     "https://cdn-ak.f.st-hatena.com/images/fotolife/e/erupyon/20260926/20260926211312.png",
-    "https://cdn-ak.f.st-hatena.com/images/fotolife/e/erupyon/20260926/20260926211216.png",
+    "https://cdn-ak.f.st-hatena.com/images/fotolife/e/erupyon/20260926/20260926211316.png",
     "https://cdn-ak.f.st-hatena.com/images/fotolife/e/erupyon/20260926/20260926211232.png",
     "https://cdn-ak.f.st-hatena.com/images/fotolife/e/erupyon/20260926/20260926211236.png"
   ];
