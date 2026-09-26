@@ -24,6 +24,13 @@ document.addEventListener("DOMContentLoaded", () => {
     pointerEvents: "none"
   });
 
+  // スマホでは小さくする
+  if (window.innerWidth <= 767) {
+    mouse.style.width = "40px";
+    mouse.style.right = "8px";
+    mouse.style.bottom = "70px";
+  }
+
   document.body.appendChild(mouse);
 
   let frame = 0;
@@ -49,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // スクロールしたら歩く
-  window.addEventListener("scroll", () => {
+  function handleScroll() {
     startWalking();
 
     clearTimeout(stopTimer);
@@ -57,5 +64,10 @@ document.addEventListener("DOMContentLoaded", () => {
     stopTimer = setTimeout(() => {
       stopWalking();
     }, 300);
-  });
+  }
+
+  window.addEventListener("scroll", handleScroll);
+
+  // スマホのタッチ操作でも歩く
+  window.addEventListener("touchmove", handleScroll, { passive: true });
 });
