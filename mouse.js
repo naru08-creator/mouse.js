@@ -44,18 +44,18 @@ document.addEventListener("DOMContentLoaded", () => {
   let stopTimer = null;
 
   // 歩く
-  function startWalking() {
-    clearInterval(animationTimer);
+function startWalking() {
+  // すでに歩いているなら何もしない
+  if (animationTimer) return;
 
-    walkFrame = 0;
+  walkFrame = 0;
+  mouse.src = walkFrames[walkFrame];
+
+  animationTimer = setInterval(() => {
+    walkFrame = (walkFrame + 1) % walkFrames.length;
     mouse.src = walkFrames[walkFrame];
-
-    animationTimer = setInterval(() => {
-      walkFrame = (walkFrame + 1) % walkFrames.length;
-      mouse.src = walkFrames[walkFrame];
-    }, 200);
-  }
-
+  }, 120);
+}
   // ダンス
   function startDancing() {
     clearInterval(animationTimer);
