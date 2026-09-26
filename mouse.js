@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
     animationTimer = setInterval(() => {
       walkFrame = (walkFrame + 1) % walkFrames.length;
       mouse.src = walkFrames[walkFrame];
-    }, 120);
+    }, 180);
   }
 
   // ダンス
