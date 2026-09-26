@@ -38,54 +38,68 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.body.appendChild(mouse);
 
-  let frame = 0;
+  let walkFrame = 0;
+  let danceFrame = 0;
+  let danceCount = 0;
+
   let animationTimer = null;
   let stopTimer = null;
-  let isDancing = false;
 
   // 歩く
   function startWalking() {
-    isDancing = false;
-
     clearInterval(animationTimer);
 
-    frame = 0;
-    mouse.src = walkFrames[0];
+    walkFrame = 0;
+    mouse.src = walkFrames[walkFrame];
 
     animationTimer = setInterval(() => {
-      mouse.src = walkFrames[frame];
-      frame = (frame + 1) % walkFrames.length;
+      walkFrame = (walkFrame + 1) % walkFrames.length;
+      mouse.src = walkFrames[walkFrame];
     }, 120);
   }
 
   // ダンス
   function startDancing() {
-    if (isDancing) return;
-
-    isDancing = true;
-
     clearInterval(animationTimer);
 
-    frame = 0;
+    danceFrame = 0;
+    danceCount = 0;
+
+    mouse.src = danceFrames[danceFrame];
 
     animationTimer = setInterval(() => {
-      mouse.src = danceFrames[frame];
-      frame = (frame + 1) % danceFrames.length;
+      danceFrame++;
+
+      if (danceFrame >= danceFrames.length) {
+        danceFrame = 0;
+        danceCount++;
+      }
+
+      // 約3周したら待機
+      if (danceCount >= 3) {
+        clearInterval(animationTimer);
+        animationTimer = null;
+        mouse.src = idleImage;
+        return;
+      }
+
+      mouse.src = danceFrames[danceFrame];
     }, 180);
   }
 
-  // スクロールしたら歩く
+  // スクロール
   function handleScroll() {
-    // ダンス開始待ちのタイマーをキャンセル
+    // ダンス開始待ち・ダンス中のタイマーを止める
     clearTimeout(stopTimer);
+    clearInterval(animationTimer);
 
-    // スクロール中は必ず歩く
+    // スクロール中は歩く
     startWalking();
 
-    // スクロールが止まったらダンス開始
+    // スクロールが止まったら少し待ってダンス
     stopTimer = setTimeout(() => {
       startDancing();
-    }, 300);
+    }, 500);
   }
 
   window.addEventListener("scroll", handleScroll);
